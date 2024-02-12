@@ -14,13 +14,13 @@ def get_secret():
 
     session = boto3.session.Session()
     client = session.client(
-        service_name='secretsmanager',
-        region_name=region_name
+        service_name = 'secretsmanager',
+        region_name = region_name
     )
 
     try:
         get_secret_value_response = client.get_secret_value(
-            SecretId=secret_name
+            SecretId = secret_name
         )
     except ClientError as e:
         raise e
@@ -62,11 +62,10 @@ CREATE TABLE users (
 data = """
 INSERT INTO clarusway.users 
 VALUES 
-    ("dora", "dora@amazon.com"),
-    ("cansın", "cansın@google.com"),
-    ("sencer", "sencer@bmw.com"),
-    ("uras", "uras@mercedes.com"),
-	("ares", "ares@porche.com");
+    ("murat", "murat@amazon.com"),
+    ("mehmet", "mehmet@google.com"),
+    ("ali", "ali@bmw.com"),
+    ("ahmet", "ahmet@mercedes.com");
 """
 cursor.execute(drop_table)
 cursor.execute(users_table)
@@ -120,9 +119,9 @@ def emails():
     if request.method == 'POST':
         user_name = request.form['user_keyword']
         user_emails = find_emails(user_name)
-        return render_template('emails.html', name_emails=user_emails, keyword=user_name, show_result=True)
+        return render_template('emails.html', name_emails = user_emails, keyword = user_name, show_result = True)
     else:
-        return render_template('emails.html', show_result=False)
+        return render_template('emails.html', show_result = False)
 
 # Write a function named `add_email` which inserts new email to the database using `GET` and `POST` methods,
 # using template files named `add-email.html` given under `templates` folder
@@ -133,11 +132,11 @@ def add_email():
         user_name = request.form['username']
         user_email = request.form['useremail']
         result = insert_email(user_name, user_email)
-        return render_template('add-email.html', result_html=result, show_result=True)
+        return render_template('add-email.html', result_html = result, show_result = True)
     else:
-        return render_template('add-email.html', show_result=False)
+        return render_template('add-email.html', show_result = False)
 
 # Add a statement to run the Flask application which can be reached from any host on port 80.
 if __name__ == '__main__':
-    #app.run(debug=True)
-    app.run(host='0.0.0.0', port=8080)
+    #app.run(debug = True)
+    app.run(host = '0.0.0.0', port = 8080)
